@@ -99,7 +99,15 @@ var getFeaturedRepos = function (language) {
     language +
     "+is:featured&sort=help-wanted-issues";
 
-  fetch(apiUrl);
+  fetch(apiUrl).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        displayRepos(data.items, language);
+      });
+    } else {
+      alert("Error: GitHub User Not Found");
+    }
+  });
 };
 
 // add event listeners to forms
